@@ -18,7 +18,7 @@ export default class Form extends React.Component {
       onSaveButtonClick,
     } = this.props;
     return (
-      <form>
+      <form onSubmit={ onSaveButtonClick }>
         <label>
           Nome
           <input
@@ -103,9 +103,10 @@ export default class Form extends React.Component {
           />
         </label>
         <button
+          type="submit"
           data-testid="save-button"
           disabled={ isSaveButtonDisabled }
-          onClick={ onSaveButtonClick }
+          onClick={ () => onSaveButtonClick }
         >
           Salvar
         </button>

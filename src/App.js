@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
+import CardList from './components/CardList';
 
 class App extends React.Component {
   constructor() {
@@ -8,6 +9,7 @@ class App extends React.Component {
 
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
+    this.deleteCard = this.deleteCard.bind(this);
 
     this.state = {
       cardName: '',
@@ -44,6 +46,7 @@ class App extends React.Component {
     } = this.state;
 
     const card = {
+      key: Math.random() * (100 - 0) + 0,
       name: cardName,
       description: cardDescription,
       attr1: cardAttr1,
@@ -66,6 +69,15 @@ class App extends React.Component {
     }));
 
     event.preventDefault();
+  }
+
+  deleteCard(keyCard) {
+    const { cards } = this.state;
+    const newCards = cards.filter((e) => e.name !== keyCard);
+
+    this.setState({
+      cards: newCards,
+    });
   }
 
   render() {
@@ -107,8 +119,6 @@ class App extends React.Component {
 
     const hasTrunfo = cards.some((e) => e.trunfo === true);
 
-    const randomNumber = Math.random() * (100 - 0) + 0;
-
     return (
       <div>
         <h1>tryunfo</h1>
@@ -137,10 +147,9 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
-        <h2>Todas as cartas</h2>
         {cards.map((card) => (
-          <Card
-            key={ randomNumber }
+          <CardList
+            key={ card.key }
             cardName={ card.name }
             cardDescription={ card.description }
             cardAttr1={ card.attr1 }
@@ -149,6 +158,7 @@ class App extends React.Component {
             cardImage={ card.imageURL }
             cardRare={ card.rare }
             cardTrunfo={ card.trunfo }
+            deleteCard={ this.deleteCard }
           />
         ))}
       </div>

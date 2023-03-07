@@ -107,6 +107,8 @@ class App extends React.Component {
 
     const hasTrunfo = cards.some((e) => e.trunfo === true);
 
+    const randomNumber = Math.random() * (100 - 0) + 0;
+
     return (
       <div>
         <h1>tryunfo</h1>
@@ -135,6 +137,19 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+        {cards.map((card) => (
+          <Card
+            key={ randomNumber }
+            cardName={ card.name }
+            cardDescription={ card.description }
+            cardAttr1={ card.attr1 }
+            cardAttr2={ card.attr2 }
+            cardAttr3={ card.attr3 }
+            cardImage={ card.imageURL }
+            cardRare={ card.rare }
+            cardTrunfo={ card.trunfo }
+          />
+        ))}
       </div>
     );
   }

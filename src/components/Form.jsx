@@ -93,7 +93,7 @@ export default class Form extends React.Component {
           </select>
         </label>
         { hasTrunfo
-          ? <span>Você já tem um Super Trunfo em seu baralho</span>
+          ? <span>Você já tem um Super Trunfo em seu baralho </span>
           : <label>
             Super trunfo
             <input
@@ -103,7 +103,7 @@ export default class Form extends React.Component {
               checked={ cardTrunfo }
               onChange={ onInputChange }
             />
-          </label> }
+            </label> }
         <button
           type="submit"
           data-testid="save-button"

@@ -137,6 +137,7 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+        <h2>Todas as cartas</h2>
         {cards.map((card) => (
           <Card
             key={ randomNumber }

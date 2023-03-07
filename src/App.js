@@ -78,6 +78,7 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      cards,
     } = this.state;
 
     const summedMaximumAttributes = 210;
@@ -103,6 +104,9 @@ class App extends React.Component {
       && cardRare.length > 0
       && sumOfAttributes
       && checksEachAttribute;
+
+    const hasTrunfo = cards.some((e) => e.trunfo === true);
+
     return (
       <div>
         <h1>tryunfo</h1>
@@ -118,6 +122,8 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
           isSaveButtonDisabled={ !isSaveButtonDisabled }
           onSaveButtonClick={ this.onSaveButtonClick }
+          hasTrunfo={ hasTrunfo }
+
         />
         <Card
           cardName={ cardName }

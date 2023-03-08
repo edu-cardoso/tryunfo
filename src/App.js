@@ -2,6 +2,7 @@ import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
 import CardList from './components/CardList';
+import FilterCard from './components/FilterCard';
 
 class App extends React.Component {
   constructor() {
@@ -10,6 +11,7 @@ class App extends React.Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.deleteCard = this.deleteCard.bind(this);
+    this.filterCard = this.filterCard.bind(this);
 
     this.state = {
       cardName: '',
@@ -21,6 +23,9 @@ class App extends React.Component {
       cardRare: '',
       cardTrunfo: false,
       cards: [],
+      cardFilteredName: '',
+      cardFilteredType: '',
+      cardsFiltered: [],
     };
   }
 
@@ -81,6 +86,20 @@ class App extends React.Component {
     });
   }
 
+  filterCard() {
+    const { cards, cardFilteredName, cardFilteredType, cardsFiltered } = this.state;
+    const cardsByFilter = cards.filter((e) => e.name === cardFilteredName
+      || e.rare === cardFilteredType);
+
+    this.setState({
+      cardsFiltered: cardsByFilter,
+      cardFilteredName: '',
+      cardFilteredType: '',
+    });
+
+    console.log(cardsFiltered);
+  }
+
   render() {
     const {
       cardName,
@@ -92,6 +111,9 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       cards,
+      cardFilteredName,
+      cardFilteredType,
+      cardsFiltered,
     } = this.state;
 
     const summedMaximumAttributes = 210;
@@ -119,6 +141,8 @@ class App extends React.Component {
       && checksEachAttribute;
 
     const hasTrunfo = cards.some((e) => e.trunfo === true);
+
+    const validatesFilteredCards = cardsFiltered.length > 0;
 
     return (
       <div>
@@ -149,21 +173,43 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
         />
 
-        {cards.map((card) => (
-          <CardList
-            key={ card.key }
-            cardName={ card.name }
-            cardDescription={ card.description }
-            cardAttr1={ card.attr1 }
-            cardAttr2={ card.attr2 }
-            cardAttr3={ card.attr3 }
-            cardImage={ card.imageURL }
-            cardRare={ card.rare }
-            cardTrunfo={ card.trunfo }
-            deleteCard={ this.deleteCard }
-            id={ card.key }
-          />
-        ))}
+        <FilterCard
+          onInputChange={ this.onInputChange }
+          filterCard={ this.filterCard }
+          cardFilteredName={ cardFilteredName }
+          cardFilteredType={ cardFilteredType }
+        />
+
+        {validatesFilteredCards
+          ? cardsFiltered.map((card) => (
+            <CardList
+              key={ card.key }
+              cardName={ card.name }
+              cardDescription={ card.description }
+              cardAttr1={ card.attr1 }
+              cardAttr2={ card.attr2 }
+              cardAttr3={ card.attr3 }
+              cardImage={ card.imageURL }
+              cardRare={ card.rare }
+              cardTrunfo={ card.trunfo }
+              deleteCard={ this.deleteCard }
+              id={ card.key }
+            />
+          )) : cards.map((card) => (
+            <CardList
+              key={ card.key }
+              cardName={ card.name }
+              cardDescription={ card.description }
+              cardAttr1={ card.attr1 }
+              cardAttr2={ card.attr2 }
+              cardAttr3={ card.attr3 }
+              cardImage={ card.imageURL }
+              cardRare={ card.rare }
+              cardTrunfo={ card.trunfo }
+              deleteCard={ this.deleteCard }
+              id={ card.key }
+            />
+          ))}
 
       </div>
     );

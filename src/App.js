@@ -66,6 +66,7 @@ class App extends React.Component {
       cardAttr3: '0',
       cardImage: '',
       cardRare: 'normal',
+      cardTrunfo: false,
     }));
 
     event.preventDefault();
@@ -73,7 +74,7 @@ class App extends React.Component {
 
   deleteCard(keyCard) {
     const { cards } = this.state;
-    const newCards = cards.filter((e) => e.name !== keyCard);
+    const newCards = cards.filter((e) => e.key !== keyCard);
 
     this.setState({
       cards: newCards,
@@ -147,6 +148,7 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+
         {cards.map((card) => (
           <CardList
             key={ card.key }
@@ -159,8 +161,10 @@ class App extends React.Component {
             cardRare={ card.rare }
             cardTrunfo={ card.trunfo }
             deleteCard={ this.deleteCard }
+            id={ card.key }
           />
         ))}
+
       </div>
     );
   }

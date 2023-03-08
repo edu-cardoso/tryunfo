@@ -13,11 +13,11 @@ export default class CardList extends React.Component {
       cardRare,
       cardTrunfo,
       deleteCard,
+      id,
     } = this.props;
 
     return (
       <div>
-        <h2>Todas as cartas</h2>
         <p data-testid="name-card">{cardName}</p>
         <img
           data-testid="image-card"
@@ -34,7 +34,7 @@ export default class CardList extends React.Component {
         )}
         <button
           data-testid="delete-button"
-          onClick={ () => deleteCard(cardName) }
+          onClick={ () => deleteCard(id) }
         >
           Excluir
         </button>
@@ -53,4 +53,5 @@ CardList.propTypes = {
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
   deleteCard: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
 };
